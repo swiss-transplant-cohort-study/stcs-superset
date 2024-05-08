@@ -77,7 +77,8 @@ from superset.utils.core import (
 )
 from superset.utils.filters import get_dataset_access_filters
 from superset.utils.urls import get_url_host
-
+from superset.security.custom.custom_authdb_view import CustomAuthDBView
+from superset.security.custom.models import CustomSupersetUser
 if TYPE_CHECKING:
     from superset.common.query_context import QueryContext
     from superset.connectors.sqla.models import (
@@ -203,6 +204,8 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
 ):
     userstatschartview = None
     READ_ONLY_MODEL_VIEWS = {"Database", "DynamicPlugin"}
+    authdbview = CustomAuthDBView # Using our custom authdb view for the login
+    user_model = CustomSupersetUser # Using our own User model
 
     USER_MODEL_VIEWS = {
         "RegisterUserModelView",
