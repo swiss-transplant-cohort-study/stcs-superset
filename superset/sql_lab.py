@@ -68,6 +68,11 @@ from superset.utils.core import (
 from superset.utils.dates import now_as_float
 from superset.utils.decorators import stats_timing
 
+
+
+
+
+
 config = app.config
 stats_logger = config["STATS_LOGGER"]
 SQLLAB_TIMEOUT = config["SQLLAB_ASYNC_TIME_LIMIT_SEC"]
@@ -235,6 +240,7 @@ def execute_sql_statement(  # pylint: disable=too-many-statements
     increased_limit = None if query.limit is None else query.limit + 1
 
     if not db_engine_spec.is_readonly_query(parsed_query) and not database.allow_dml:
+        
         raise SupersetErrorException(
             SupersetError(
                 message=__("Only SELECT statements are allowed against this database."),
@@ -242,6 +248,18 @@ def execute_sql_statement(  # pylint: disable=too-many-statements
                 level=ErrorLevel.ERROR,
             )
         )
+    if not db_engine_spec.is_readonly_query(parsed_query) and database.allow_dml and not security_manager.is_admin() :
+        
+        raise SupersetErrorException(
+            SupersetError(
+                message=__("You don't have permission to perform a DML operation against this database."),
+                error_type=SupersetErrorType.DML_NOT_ALLOWED_ERROR,
+                level=ErrorLevel.ERROR,
+            )
+        )
+
+
+
     if apply_ctas:
         if not query.tmp_table_name:
             start_dttm = datetime.fromtimestamp(query.start_time)
