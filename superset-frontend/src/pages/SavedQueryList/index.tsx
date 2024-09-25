@@ -297,9 +297,14 @@ function SavedQueryList({
         accessor: 'label',
         Header: t('Name'),
       },
+      
       {
         accessor: 'description',
         Header: t('Description'),
+      },
+      {
+        accessor: 'comment',
+        Header: t('Comment'),
       },
       {
         accessor: 'database.database_name',

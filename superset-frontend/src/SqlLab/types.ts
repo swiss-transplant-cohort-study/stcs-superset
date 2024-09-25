@@ -61,6 +61,7 @@ export interface QueryEditor {
   selectedText?: string;
   queryLimit?: number;
   description?: string;
+  comment?:string;
   loaded?: boolean;
   inLocalStorage?: boolean;
   northPercent?: number;
