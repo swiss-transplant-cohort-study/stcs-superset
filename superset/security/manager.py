@@ -66,6 +66,7 @@ from superset.security.guest_token import (
     GuestTokenUser,
     GuestUser,
 )
+from superset.security.custom_auth_db_view import CustomAuthDBView
 from superset.sql_parse import extract_tables_from_jinja_sql, Table
 from superset.utils import json
 from superset.utils.core import (
@@ -204,10 +205,10 @@ def query_context_modified(query_context: "QueryContext") -> bool:
 
 class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
     SecurityManager
-):
+):  
     userstatschartview = None
     READ_ONLY_MODEL_VIEWS = {"Database", "DynamicPlugin"}
-
+    
     USER_MODEL_VIEWS = {
         "RegisterUserModelView",
         "UserDBModelView",
@@ -343,6 +344,8 @@ class SupersetSecurityManager(  # pylint: disable=too-many-public-methods
 
     guest_user_cls = GuestUser
     pyjwt_for_guest_token = _jwt_global_obj
+    
+    authdbview = CustomAuthDBView
 
     def create_login_manager(self, app: Flask) -> LoginManager:
         lm = super().create_login_manager(app)
