@@ -1194,6 +1194,7 @@ export function popSavedQuery(saveQueryId) {
       endpoint: `/api/v1/saved_query/${saveQueryId}`,
     })
       .then(({ json }) => {
+        console.log(json.result)
         const queryEditorProps = {
           ...convertQueryToClient(json.result),
           loaded: true,

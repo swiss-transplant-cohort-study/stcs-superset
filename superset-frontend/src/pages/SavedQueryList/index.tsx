@@ -294,6 +294,10 @@ function SavedQueryList({
   const columns = useMemo(
     () => [
       {
+        accessor: 'dqc_id',
+        Header: t('DQC ID'),
+      },
+      {
         accessor: 'label',
         Header: t('Name'),
       },

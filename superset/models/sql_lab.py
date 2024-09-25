@@ -42,6 +42,7 @@ from sqlalchemy import (
     Numeric,
     String,
     Text,
+    UniqueConstraint
 )
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import backref, relationship
@@ -399,6 +400,7 @@ class SavedQuery(
     label = Column(String(256))
     description = Column(Text)
     comment = Column(Text) 
+    dqc_id = Column(Integer,nullable=True)
     sql = Column(MediumText())
     template_parameters = Column(Text)
     user = relationship(
@@ -429,7 +431,8 @@ class SavedQuery(
         "schema",
         "label",
         "description",
-        "comment"
+        "comment",
+        "dqc_id",
         "sql",
     ]
 

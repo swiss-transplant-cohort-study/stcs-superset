@@ -62,6 +62,7 @@ export interface QueryEditor {
   queryLimit?: number;
   description?: string;
   comment?:string;
+  dqc_id?:number;
   loaded?: boolean;
   inLocalStorage?: boolean;
   northPercent?: number;

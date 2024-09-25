@@ -66,7 +66,7 @@ class SavedQueryViewApi(DeprecateModelViewMixin, SupersetModelView, DeleteMixin)
 
     method_permission_name = MODEL_VIEW_RW_METHOD_PERMISSION_MAP
 
-    add_columns = ["label", "db_id", "schema", "description", "comment","sql", "extra_json"]
+    add_columns = ["dqc_id","label", "db_id", "schema", "description","comment","sql", "extra_json"]
     edit_columns = add_columns
     show_columns = add_columns + ["id"]
 

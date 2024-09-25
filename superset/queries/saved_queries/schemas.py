@@ -43,6 +43,7 @@ class ImportV1SavedQuerySchema(Schema):
     label = fields.String(allow_none=True, validate=Length(0, 256))
     description = fields.String(allow_none=True)
     comment = fields.String(allow_none=True)
+    dqc_id = fields.Integer(allow_none=True)
     sql = fields.String(required=True)
     uuid = fields.UUID(required=True)
     version = fields.String(required=True)

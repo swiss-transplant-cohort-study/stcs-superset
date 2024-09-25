@@ -53,6 +53,7 @@ export type QueryPayload = {
   name: string;
   description?: string;
   comment?: string;
+  dqc_id?:number;
   id?: string;
   remoteId?: number;
 } & Pick<QueryEditor, 'dbId' | 'catalog' | 'schema' | 'sql'>;
@@ -76,12 +77,13 @@ const SaveQuery = ({
   saveQueryWarning,
   database,
   columns,
-}: SaveQueryProps) => {
+}: SaveQueryProps) => { 
   const queryEditor = useQueryEditor(queryEditorId, [
     'autorun',
     'name',
     'description',
     'comment',
+    'dqc_id',
     'remoteId',
     'dbId',
     'latestQueryId',
@@ -99,12 +101,18 @@ const SaveQuery = ({
     }),
     [queryEditor, columns],
   );
+
+
+  console.log("AAAAAAA")
+  console.log(query)
+  console.log(queryEditor)
   const logAction = useLogAction({ queryEditorId });
   const defaultLabel = query.name || query.description || t('Undefined');
   const [description, setDescription] = useState<string>(
     query.description || '',
   );
   const [comment, setComment] = useState<string>(query.comment || '',);
+  const [dqc_id,setDqcId] = useState<number>(query.dqc_id || 0)
   const [label, setLabel] = useState<string>(defaultLabel);
   const [showSave, setShowSave] = useState<boolean>(false);
   const [showSaveDatasetModal, setShowSaveDatasetModal] = useState(false);
@@ -112,7 +120,7 @@ const SaveQuery = ({
   const canExploreDatabase = !!database?.allows_virtual_table_explore;
   const shouldShowSaveButton =
     database?.allows_virtual_table_explore !== undefined;
-
+  
   const overlayMenu = (
     <Menu>
       <Menu.Item
@@ -130,6 +138,7 @@ const SaveQuery = ({
     name: label,
     description,
     comment,
+    dqc_id,
     dbId: query.dbId ?? 0,
     sql: query.sql,
     catalog: query.catalog,
@@ -158,6 +167,9 @@ const SaveQuery = ({
   const onLabelChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLabel(e.target.value);
   };
+  const onDqcIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDqcId(parseInt(e.target.value));
+  };
 
   const onDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
@@ -170,7 +182,13 @@ const SaveQuery = ({
   const renderModalBody = () => (
     <Form layout="vertical">
       <Row>
-        <Col xs={24}>
+        <Col xs={4}>
+          <FormItem label={t('DQC ID')}>
+            <Input type="number" value={dqc_id} onChange={onDqcIdChange} />
+          </FormItem>
+        </Col>
+        <Col xs={2}></Col>
+        <Col xs={18}>
           <FormItem label={t('Name')}>
             <Input type="text" value={label} onChange={onLabelChange} />
           </FormItem>

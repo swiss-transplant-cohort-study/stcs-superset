@@ -316,7 +316,8 @@ const SqlEditor: FC<Props> = ({
     () => !database || isEmpty(database),
     [database],
   );
-
+  console.log("........")
+  console.log(latestQuery?.results)
   const sqlEditorRef = useRef<HTMLDivElement>(null);
   const northPaneRef = useRef<HTMLDivElement>(null);
 
