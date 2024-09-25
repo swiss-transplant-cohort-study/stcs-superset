@@ -42,6 +42,7 @@ from sqlalchemy import (
     Numeric,
     String,
     Text,
+    UniqueConstraint
 )
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import backref, relationship
@@ -391,6 +392,8 @@ class SavedQuery(
     """ORM model for SQL query"""
 
     __tablename__ = "saved_query"
+    __table_args__ = (UniqueConstraint("label", name="uq_saved_query_label"),) # Adding unique constraint on the name
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("ab_user.id"), nullable=True)
     db_id = Column(Integer, ForeignKey("dbs.id"), nullable=True)
