@@ -187,7 +187,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # or use `SUPERSET_SECRET_KEY` environment variable.
 # Use a strong complex alphanumeric string and use a tool to help you generate
 # a sufficiently random sequence, ex: openssl rand -base64 42"
-SECRET_KEY = os.environ.get("SUPERSET_SECRET_KEY") or  "OpoWVqxz3XmGzqxTi7GpvEF94RkZu3wWqTsLsPgrEIKXwEGiNO+0dVSK"
+SECRET_KEY = os.environ.get("SUPERSET_SECRET_KEY") or CHANGE_ME_SECRET_KEY
 
 # The SQLAlchemy connection string.
 SQLALCHEMY_DATABASE_URI = (
@@ -475,7 +475,7 @@ DEFAULT_FEATURE_FLAGS: dict[str, bool] = {
     # Exposes API endpoint to compute thumbnails
     "THUMBNAILS": False,
     "SHARE_QUERIES_VIA_KV_STORE": False,
-    "TAGGING_SYSTEM": True,
+    "TAGGING_SYSTEM": False,
     "SQLLAB_BACKEND_PERSISTENCE": True,
     "LISTVIEWS_DEFAULT_CARD_VIEW": False,
     # When True, this escapes HTML (rather than rendering it) in Markdown components
